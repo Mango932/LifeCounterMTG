@@ -1,7 +1,7 @@
 import { View, TextInput } from "react-native";
 import React from "react";
 
-export default function SwipeComponent({ changeName, id, closeSwipe }) {
+export default function SwipeComponent({ changeName, id, onBlur }) {
     return (
         <View
             style={{
@@ -26,7 +26,7 @@ export default function SwipeComponent({ changeName, id, closeSwipe }) {
                     maxLength={10}
                     placeholder={"Player"}
                     onChangeText={(text) => changeName(text, id)}
-                    onBlur={() => closeSwipe()}
+                    onBlur={() => onBlur()}
                 />
             </View>
         </View>
