@@ -18,76 +18,58 @@ export default function CommanderLayout() {
         setNameList(tempArr);
     };
 
-    const counterBoxRef0 = useRef();
-    const counterBoxRef1 = useRef();
-    const counterBoxRef2 = useRef();
-    const counterBoxRef3 = useRef();
-
     const handleCloseSwipeable = (ref) => {
         ref.current.handleCloseSwipeable();
     };
 
+    const players = [
+        {
+            name: nameList[0],
+            id: 0,
+            color: "red",
+            ref: (counterBoxRef0 = useRef()),
+        },
+        {
+            name: nameList[1],
+            id: 1,
+            color: "blue",
+            ref: (counterBoxRef1 = useRef()),
+        },
+        {
+            name: nameList[2],
+            id: 2,
+            color: "orange",
+            ref: (counterBoxRef2 = useRef()),
+        },
+        {
+            name: nameList[3],
+            id: 3,
+            color: "green",
+            ref: (counterBoxRef3 = useRef()),
+        },
+    ];
+
     return (
         <Screen style={styles.screen}>
             <View style={styles.container}>
-                <CounterBox
-                    ref={counterBoxRef0}
-                    color={"red"}
-                    startingLife={40}
-                    width={"50%"}
-                    name={nameList[0]}
-                    rightSwipeAction={() => (
-                        <SwipeComponent
-                            changeName={handleChangeName}
-                            id={0}
-                            onBlur={() => handleCloseSwipeable(counterBoxRef0)}
-                        />
-                    )}
-                />
-                <CounterBox
-                    ref={counterBoxRef1}
-                    color={"blue"}
-                    startingLife={40}
-                    width={"50%"}
-                    name={nameList[1]}
-                    leftSwipeAction={() => (
-                        <SwipeComponent
-                            changeName={handleChangeName}
-                            id={1}
-                            onBlur={() => handleCloseSwipeable(counterBoxRef1)}
-                        />
-                    )}
-                />
-            </View>
-            <View style={styles.container}>
-                <CounterBox
-                    ref={counterBoxRef2}
-                    color={"orange"}
-                    startingLife={40}
-                    width={"50%"}
-                    name={nameList[2]}
-                    rightSwipeAction={() => (
-                        <SwipeComponent
-                            changeName={handleChangeName}
-                            id={2}
-                            onBlur={() => handleCloseSwipeable(counterBoxRef2)}
-                        />
-                    )}
-                />
-                <CounterBox
-                    ref={counterBoxRef3}
-                    color={"green"}
-                    startingLife={40}
-                    width={"50%"}
-                    name={nameList[3]}
-                    leftSwipeAction={() => (
-                        <SwipeComponent
-                            changeName={handleChangeName}
-                            id={3}
-                            onBlur={() => handleCloseSwipeable(counterBoxRef3)}
-                        />
-                    )}
-                />
+                {players.map((player) => (
+                    <CounterBox
+                        key={player.id}
+                        ref={player.ref}
+                        color={player.color}
+                        startingLife={40}
+                        width={"50%"}
+                        height={"50%"}
+                        name={player.name}
+                        rightSwipeAction={() => (
+                            <SwipeComponent
+                                changeName={handleChangeName}
+                                id={player.id}
+                                onBlur={() => handleCloseSwipeable(player.ref)}
+                            />
+                        )}
+                    />
+                ))}
             </View>
         </Screen>
     );
@@ -99,8 +81,9 @@ const styles = StyleSheet.create({
     },
     container: {
         width: "100%",
-        height: "50%",
+        height: "100%",
         flexDirection: "row",
         flexBasis: "auto",
+        flexWrap: "wrap",
     },
 });
