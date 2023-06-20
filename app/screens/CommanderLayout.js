@@ -12,60 +12,68 @@ export default function CommanderLayout() {
         "Player 4",
     ]);
 
+    const [colors, setColors] = useState([
+        "#FF0000FF",
+        "#0000FFFF",
+        "#FFA500FF",
+        "#00FF00FF",
+    ]);
+
     const handleChangeName = (name, id) => {
         const tempArr = [...nameList];
         tempArr[id] = name;
         setNameList(tempArr);
     };
 
+    const handleChangeColor = (color, id) => {
+        const tempArr = [...colors];
+        tempArr[id] = color;
+        setColors(tempArr);
+    };
+
     const handleCloseSwipeable = (ref) => {
         ref.current.handleCloseSwipeable();
     };
 
-    const players = [
-        {
-            name: nameList[0],
-            id: 0,
-            color: "red",
-            ref: (counterBoxRef0 = useRef()),
-        },
-        {
-            name: nameList[1],
-            id: 1,
-            color: "blue",
-            ref: (counterBoxRef1 = useRef()),
-        },
-        {
-            name: nameList[2],
-            id: 2,
-            color: "orange",
-            ref: (counterBoxRef2 = useRef()),
-        },
-        {
-            name: nameList[3],
-            id: 3,
-            color: "green",
-            ref: (counterBoxRef3 = useRef()),
-        },
-    ];
+    const refs = useRef([...Array(4)].map(() => React.createRef()));
+
+    console.log("app started");
 
     return (
         <Screen style={styles.screen}>
             <View style={styles.container}>
-                {players.map((player) => (
+                {nameList.map((element, key) => (
                     <CounterBox
-                        key={player.id}
-                        ref={player.ref}
-                        color={player.color}
+                        key={key}
+                        ref={refs.current[key]}
+                        color={colors[key]}
                         startingLife={40}
                         width={"50%"}
                         height={"50%"}
-                        name={player.name}
+                        name={nameList[key]}
+                        dir={key % 2 == 0 ? "right" : "left"}
                         rightSwipeAction={() => (
                             <SwipeComponent
+                                name={nameList[key]}
+                                color={colors[key]}
                                 changeName={handleChangeName}
-                                id={player.id}
-                                onBlur={() => handleCloseSwipeable(player.ref)}
+                                id={key}
+                                onBlur={() =>
+                                    handleCloseSwipeable(refs.current[key])
+                                }
+                                changeColor={handleChangeColor}
+                            />
+                        )}
+                        leftSwipeAction={() => (
+                            <SwipeComponent
+                                name={nameList[key]}
+                                color={colors[key]}
+                                changeName={handleChangeName}
+                                id={key}
+                                onBlur={() =>
+                                    handleCloseSwipeable(refs.current[key])
+                                }
+                                changeColor={handleChangeColor}
                             />
                         )}
                     />

@@ -15,6 +15,7 @@ const CounterBox = forwardRef(
             name,
             rightSwipeAction,
             leftSwipeAction,
+            dir,
         },
         ref
     ) => {
@@ -51,10 +52,14 @@ const CounterBox = forwardRef(
             >
                 <Swipeable
                     ref={swipeRef}
-                    renderRightActions={rightSwipeAction}
+                    renderRightActions={
+                        dir == "right" ? rightSwipeAction : () => <></>
+                    }
                     rightThreshold={-80}
                     overshootRight={0}
-                    renderLeftActions={leftSwipeAction}
+                    renderLeftActions={
+                        dir == "left" ? rightSwipeAction : () => <></>
+                    }
                     leftThreshold={-80}
                     overshootLeft={0}
                     friction={2}
@@ -99,6 +104,8 @@ const styles = StyleSheet.create({
         height: "100%",
         alignItems: "center",
         justifyContent: "center",
+        borderColor: "black",
+        borderWidth: 1,
     },
     text: {
         fontSize: 50,
