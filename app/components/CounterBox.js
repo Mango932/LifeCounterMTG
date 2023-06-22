@@ -4,6 +4,7 @@ import {
     GestureHandlerRootView,
     Swipeable,
 } from "react-native-gesture-handler";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const CounterBox = forwardRef(
     (
@@ -13,9 +14,9 @@ const CounterBox = forwardRef(
             height,
             width,
             name,
-            rightSwipeAction,
-            leftSwipeAction,
+            swipeAction,
             dir,
+            rotation,
         },
         ref
     ) => {
@@ -48,17 +49,18 @@ const CounterBox = forwardRef(
                         height: height,
                         width: width,
                     },
+                    rotation,
                 ]}
             >
                 <Swipeable
                     ref={swipeRef}
                     renderRightActions={
-                        dir == "right" ? rightSwipeAction : () => <></>
+                        dir == "right" ? swipeAction : () => <></>
                     }
                     rightThreshold={-80}
                     overshootRight={0}
                     renderLeftActions={
-                        dir == "left" ? rightSwipeAction : () => <></>
+                        dir == "left" ? swipeAction : () => <></>
                     }
                     leftThreshold={-80}
                     overshootLeft={0}
@@ -76,14 +78,29 @@ const CounterBox = forwardRef(
                             onPress={() => addSub(-1)}
                             onLongPress={() => start(-1)}
                             onPressOut={() => clearInterval(timerId)}
-                        />
+                        >
+                            <MaterialCommunityIcons
+                                name={"minus"}
+                                color={"black"}
+                                size={40}
+                            />
+                        </TouchableOpacity>
                         <TouchableOpacity
                             id="up"
-                            style={[styles.button, { right: 0 }]}
+                            style={[
+                                styles.button,
+                                { right: 0, alignItems: "flex-end" },
+                            ]}
                             onPress={() => addSub(1)}
                             onLongPress={() => start(1)}
                             onPressOut={() => clearInterval(timerId)}
-                        />
+                        >
+                            <MaterialCommunityIcons
+                                name={"plus"}
+                                color={"black"}
+                                size={40}
+                            />
+                        </TouchableOpacity>
                     </View>
                 </Swipeable>
             </GestureHandlerRootView>
@@ -98,6 +115,8 @@ const styles = StyleSheet.create({
         position: "absolute",
         height: "100%",
         width: "50%",
+        justifyContent: "center",
+        padding: 20,
     },
     container: {
         width: "100%",
@@ -108,10 +127,12 @@ const styles = StyleSheet.create({
         borderWidth: 1,
     },
     text: {
-        fontSize: 50,
-        marginBottom: "5%",
+        fontSize: 80,
+        fontWeight: 500,
     },
     textName: {
-        fontSize: 30,
+        fontSize: 20,
+        position: "absolute",
+        bottom: 10,
     },
 });

@@ -1,7 +1,6 @@
-import ComanderLayout from './app/screens/CommanderLayout';
+import CommanderLayout from "./app/screens/CommanderLayout";
+import StandardLayout from "./app/screens/StandardLayout";
 
 export default function App() {
-  return (
-    <ComanderLayout/>
-  );
+    return <StandardLayout />;
 }

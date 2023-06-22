@@ -5,19 +5,9 @@ import CounterBox from "../components/CounterBox.js";
 import SwipeComponent from "../components/SwipeComponent.js";
 
 export default function CommanderLayout() {
-    const [nameList, setNameList] = useState([
-        "Player 1",
-        "Player 2",
-        "Player 3",
-        "Player 4",
-    ]);
+    const [nameList, setNameList] = useState(["Player 1", "Player 2"]);
 
-    const [colors, setColors] = useState([
-        "#FF0000FF",
-        "#0000FFFF",
-        "#FFA500FF",
-        "#00FF00FF",
-    ]);
+    const [colors, setColors] = useState(["#FF0000FF", "#0000FFFF"]);
 
     const handleChangeName = (name, id) => {
         const tempArr = [...nameList];
@@ -35,7 +25,7 @@ export default function CommanderLayout() {
         ref.current.handleCloseSwipeable();
     };
 
-    const refs = useRef([...Array(4)].map(() => React.createRef()));
+    const refs = useRef([...Array(2)].map(() => React.createRef()));
 
     return (
         <Screen style={styles.screen}>
@@ -45,7 +35,7 @@ export default function CommanderLayout() {
                         rotation={{
                             transform: [
                                 {
-                                    rotate: key < 2 ? "180deg" : "0deg",
+                                    rotate: key < 1 ? "180deg" : "0deg",
                                 },
                             ],
                         }}
@@ -53,8 +43,8 @@ export default function CommanderLayout() {
                         key={key}
                         ref={refs.current[key]}
                         color={colors[key]}
-                        startingLife={40}
-                        width={"50%"}
+                        startingLife={20}
+                        width={"100%"}
                         height={"50%"}
                         name={nameList[key]}
                         dir={key % 2 == 0 ? "right" : "left"}
