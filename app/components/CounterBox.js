@@ -128,7 +128,6 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 80,
-        fontWeight: 500,
     },
     textName: {
         fontSize: 20,

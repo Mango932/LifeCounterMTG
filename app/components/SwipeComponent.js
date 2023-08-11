@@ -1,5 +1,5 @@
 import { View, TextInput, StyleSheet } from "react-native";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ColorPicker, { HueSlider } from "reanimated-color-picker";
 import { MaterialIcons } from "@expo/vector-icons";
 
@@ -11,6 +11,7 @@ export default function SwipeComponent({
     changeColor,
     name,
     sliderThic,
+    orientation,
 }) {
     const [newName, setNewName] = useState(name);
 
@@ -33,7 +34,11 @@ export default function SwipeComponent({
                 <TextInput
                     style={[
                         styles.textInput,
-                        { height: sliderThic + 4, backgroundColor: color },
+                        {
+                            height: sliderThic + 4,
+                            backgroundColor: color,
+                            width: orientation == 1 ? "75%" : "50%",
+                        },
                     ]}
                     maxLength={10}
                     value={newName}
@@ -44,7 +49,7 @@ export default function SwipeComponent({
                 />
                 <View
                     style={{
-                        width: "50%",
+                        width: orientation == 1 ? "75%" : "50%",
                         borderWidth: 2,
                         borderColor: "black",
                         borderRadius: 6,

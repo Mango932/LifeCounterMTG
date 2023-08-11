@@ -1,13 +1,24 @@
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, useWindowDimensions } from "react-native";
 import Screen from "../components/Screen.js";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import CounterBox from "../components/CounterBox.js";
 import SwipeComponent from "../components/SwipeComponent.js";
+import * as ScreenOrientation from "expo-screen-orientation";
+import StackBackButton from "../components/StackBackButton.js";
 
-export default function CommanderLayout() {
+export default function StandardLayout({ navigation }) {
     const [nameList, setNameList] = useState(["Player 1", "Player 2"]);
 
     const [colors, setColors] = useState(["#FF0000FF", "#0000FFFF"]);
+
+    const [orientation, setOrientation] = useState(null);
+    const screenWidth = useWindowDimensions().width;
+    useEffect(() => {
+        ScreenOrientation.getOrientationAsync().then((result) => {
+            setOrientation(result);
+        });
+    }, [screenWidth]);
+    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.DEFAULT);
 
     const handleChangeName = (name, id) => {
         const tempArr = [...nameList];
@@ -30,6 +41,9 @@ export default function CommanderLayout() {
     return (
         <Screen style={styles.screen}>
             <View style={styles.container}>
+                <View style={styles.backButtonContainer}>
+                    <StackBackButton onPress={() => navigation.pop()} />
+                </View>
                 {nameList.map((element, key) => (
                     <CounterBox
                         rotation={{
@@ -47,18 +61,19 @@ export default function CommanderLayout() {
                         width={"100%"}
                         height={"50%"}
                         name={nameList[key]}
-                        dir={key % 2 == 0 ? "right" : "left"}
+                        dir={"right"}
                         swipeAction={() => (
                             <SwipeComponent
                                 sliderThic={40}
                                 name={nameList[key]}
                                 color={colors[key]}
                                 changeName={handleChangeName}
-                                id={key}
+                                id={0}
                                 onBlur={() =>
                                     handleCloseSwipeable(refs.current[key])
                                 }
                                 changeColor={handleChangeColor}
+                                orientation={orientation}
                             />
                         )}
                     />
@@ -71,6 +86,14 @@ export default function CommanderLayout() {
 const styles = StyleSheet.create({
     screen: {
         backgroundColor: "black",
+    },
+    backButtonContainer: {
+        position: "absolute",
+        height: "100%",
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
     },
     container: {
         width: "100%",

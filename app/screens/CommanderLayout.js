@@ -3,8 +3,10 @@ import Screen from "../components/Screen.js";
 import React, { useState, useRef } from "react";
 import CounterBox from "../components/CounterBox.js";
 import SwipeComponent from "../components/SwipeComponent.js";
+import * as ScreenOrientation from "expo-screen-orientation";
+import StackBackButton from "../components/StackBackButton.js";
 
-export default function CommanderLayout() {
+export default function CommanderLayout({ navigation }) {
     const [nameList, setNameList] = useState([
         "Player 1",
         "Player 2",
@@ -18,6 +20,8 @@ export default function CommanderLayout() {
         "#FFA500FF",
         "#00FF00FF",
     ]);
+
+    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
 
     const handleChangeName = (name, id) => {
         const tempArr = [...nameList];
@@ -40,6 +44,9 @@ export default function CommanderLayout() {
     return (
         <Screen style={styles.screen}>
             <View style={styles.container}>
+                <View style={styles.backButtonContainer}>
+                    <StackBackButton onPress={() => navigation.pop()} />
+                </View>
                 {nameList.map((element, key) => (
                     <CounterBox
                         rotation={{
@@ -81,6 +88,21 @@ export default function CommanderLayout() {
 const styles = StyleSheet.create({
     screen: {
         backgroundColor: "black",
+    },
+    backButtonContainer: {
+        position: "absolute",
+        height: "100%",
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    container: {
+        width: "100%",
+        height: "100%",
+        flexDirection: "row",
+        flexBasis: "auto",
+        flexWrap: "wrap",
     },
     container: {
         width: "100%",
