@@ -64,7 +64,7 @@ export default function CommanderLayout({ navigation }) {
                         width={"50%"}
                         height={"50%"}
                         name={nameList[key]}
-                        dir={key % 2 == 0 ? "right" : "left"}
+                        dir={key == 1 || key == 2 ? "right" : "left"}
                         swipeAction={() => (
                             <SwipeComponent
                                 sliderThic={40}
@@ -72,6 +72,7 @@ export default function CommanderLayout({ navigation }) {
                                 color={colors[key]}
                                 changeName={handleChangeName}
                                 id={key}
+                                dir={key == 1 || key == 2 ? "right" : "left"}
                                 onBlur={() =>
                                     handleCloseSwipeable(refs.current[key])
                                 }

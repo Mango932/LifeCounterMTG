@@ -12,6 +12,7 @@ export default function SwipeComponent({
     name,
     sliderThic,
     orientation,
+    dir,
 }) {
     const [newName, setNewName] = useState(name);
 
@@ -23,13 +24,15 @@ export default function SwipeComponent({
                     style={[
                         styles.arrow,
                         {
-                            left: id % 2 == 1 ? null : 20,
-                            right: id % 2 == 1 ? 20 : null,
+                            left: dir == "right" ? 20 : null,
+                            right: dir == "left" ? 20 : null,
                         },
                     ]}
-                    name={id % 2 == 0 ? "arrow-back-ios" : "arrow-forward-ios"}
+                    name={
+                        dir == "right" ? "arrow-back-ios" : "arrow-forward-ios"
+                    }
                     color={"black"}
-                    size={40}
+                    size={30}
                 />
                 <TextInput
                     style={[
@@ -75,7 +78,7 @@ export default function SwipeComponent({
 }
 
 const styles = StyleSheet.create({
-    arrow: { position: "absolute", left: 20 },
+    arrow: { position: "absolute" },
     bgContainer: {
         position: "absolute",
         opacity: 0.5,

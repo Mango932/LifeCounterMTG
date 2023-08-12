@@ -1,10 +1,4 @@
-import {
-    View,
-    Text,
-    StyleSheet,
-    TouchableHighlight,
-    Alert,
-} from "react-native";
+import { StyleSheet, TouchableHighlight, Alert } from "react-native";
 import React from "react";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";

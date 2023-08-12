@@ -68,7 +68,8 @@ export default function StandardLayout({ navigation }) {
                                 name={nameList[key]}
                                 color={colors[key]}
                                 changeName={handleChangeName}
-                                id={0}
+                                id={key}
+                                dir={"right"}
                                 onBlur={() =>
                                     handleCloseSwipeable(refs.current[key])
                                 }

@@ -6,6 +6,9 @@ import {
 } from "react-native-gesture-handler";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
+import { MaterialIcons } from "@expo/vector-icons";
+import AppText from "./AppText";
+
 const CounterBox = forwardRef(
     (
         {
@@ -70,6 +73,22 @@ const CounterBox = forwardRef(
                     <View
                         style={[styles.container, { backgroundColor: color }]}
                     >
+                        <MaterialIcons
+                            name={
+                                dir == "left"
+                                    ? "arrow-forward-ios"
+                                    : "arrow-back-ios"
+                            }
+                            color={"black"}
+                            size={20}
+                            style={[
+                                styles.arrow,
+                                {
+                                    left: dir == "right" ? 20 : null,
+                                    right: dir == "left" ? 20 : null,
+                                },
+                            ]}
+                        />
                         <Text style={styles.textName}>{name}</Text>
                         <Text style={styles.text}>{lifeTotal}</Text>
                         <TouchableOpacity
@@ -111,6 +130,10 @@ const CounterBox = forwardRef(
 export default CounterBox;
 
 const styles = StyleSheet.create({
+    arrow: {
+        position: "absolute",
+        bottom: 10,
+    },
     button: {
         position: "absolute",
         height: "100%",
@@ -128,6 +151,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 80,
+        fontWeight: "bold",
     },
     textName: {
         fontSize: 20,
