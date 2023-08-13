@@ -3,7 +3,7 @@
         "name": "LifeCounterMTG",
         "slug": "LifeCounterMTG",
         "version": "1.0.0",
-        "orientation": "DEFAULT",
+        "orientation": "PORTRAIT",
         "icon": "",
         "userInterfaceStyle": "light",
         "splash": {

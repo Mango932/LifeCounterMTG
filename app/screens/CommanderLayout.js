@@ -97,6 +97,7 @@ const styles = StyleSheet.create({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        zIndex: 1,
     },
     container: {
         width: "100%",

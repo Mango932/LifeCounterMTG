@@ -62,6 +62,7 @@ export default function StandardLayout({ navigation }) {
                         height={"50%"}
                         name={nameList[key]}
                         dir={"right"}
+                        style={styles.counterBox}
                         swipeAction={() => (
                             <SwipeComponent
                                 sliderThic={40}
@@ -89,12 +90,9 @@ const styles = StyleSheet.create({
         backgroundColor: "black",
     },
     backButtonContainer: {
-        position: "absolute",
-        height: "100%",
-        width: "100%",
         display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
+        zIndex: 1,
+        position: "absolute",
     },
     container: {
         width: "100%",
@@ -102,5 +100,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         flexBasis: "auto",
         flexWrap: "wrap",
+        justifyContent: "center",
+        alignItems: "center",
     },
 });

@@ -40,7 +40,7 @@ export default function SwipeComponent({
                         {
                             height: sliderThic + 4,
                             backgroundColor: color,
-                            width: orientation == 1 ? "75%" : "50%",
+                            width: orientation == 1 ? "65%" : "50%",
                         },
                     ]}
                     maxLength={10}
@@ -52,7 +52,7 @@ export default function SwipeComponent({
                 />
                 <View
                     style={{
-                        width: orientation == 1 ? "75%" : "50%",
+                        width: orientation == 1 ? "65%" : "50%",
                         borderWidth: 2,
                         borderColor: "black",
                         borderRadius: 6,
