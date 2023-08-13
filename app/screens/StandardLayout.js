@@ -11,6 +11,8 @@ export default function StandardLayout({ navigation }) {
 
     const [colors, setColors] = useState(["#FF0000FF", "#0000FFFF"]);
 
+    const [death, setDeath] = useState([false, false]);
+
     const [orientation, setOrientation] = useState(null);
     const screenWidth = useWindowDimensions().width;
     useEffect(() => {
@@ -30,6 +32,12 @@ export default function StandardLayout({ navigation }) {
         const tempArr = [...colors];
         tempArr[id] = color;
         setColors(tempArr);
+    };
+
+    const handleChangeDeath = (deathStatus, id) => {
+        const tempArr = [...death];
+        tempArr[id] = deathStatus;
+        setDeath(tempArr);
     };
 
     const handleCloseSwipeable = (ref) => {
@@ -53,6 +61,8 @@ export default function StandardLayout({ navigation }) {
                                 },
                             ],
                         }}
+                        changeDeath={handleChangeDeath}
+                        death={death[key]}
                         id={key}
                         key={key}
                         ref={refs.current[key]}
@@ -68,6 +78,7 @@ export default function StandardLayout({ navigation }) {
                                 sliderThic={40}
                                 name={nameList[key]}
                                 color={colors[key]}
+                                changeDeath={handleChangeDeath}
                                 changeName={handleChangeName}
                                 id={key}
                                 dir={"right"}

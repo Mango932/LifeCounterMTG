@@ -7,7 +7,7 @@ import {
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import { MaterialIcons } from "@expo/vector-icons";
-import AppText from "./AppText";
+import { Foundation } from "@expo/vector-icons";
 
 const CounterBox = forwardRef(
     (
@@ -20,6 +20,9 @@ const CounterBox = forwardRef(
             swipeAction,
             dir,
             rotation,
+            death,
+            changeDeath,
+            id,
         },
         ref
     ) => {
@@ -55,73 +58,92 @@ const CounterBox = forwardRef(
                     rotation,
                 ]}
             >
-                <Swipeable
-                    ref={swipeRef}
-                    renderRightActions={
-                        dir == "right" ? swipeAction : () => <></>
-                    }
-                    rightThreshold={-80}
-                    overshootRight={0}
-                    renderLeftActions={
-                        dir == "left" ? swipeAction : () => <></>
-                    }
-                    leftThreshold={-80}
-                    overshootLeft={0}
-                    friction={2}
-                    tension={40}
-                >
-                    <View
-                        style={[styles.container, { backgroundColor: color }]}
+                {death == false ? (
+                    <Swipeable
+                        ref={swipeRef}
+                        renderRightActions={
+                            dir == "right" ? swipeAction : () => <></>
+                        }
+                        rightThreshold={-80}
+                        overshootRight={0}
+                        renderLeftActions={
+                            dir == "left" ? swipeAction : () => <></>
+                        }
+                        leftThreshold={-80}
+                        overshootLeft={0}
+                        friction={2}
+                        tension={40}
                     >
-                        <MaterialIcons
-                            name={
-                                dir == "left"
-                                    ? "arrow-forward-ios"
-                                    : "arrow-back-ios"
-                            }
-                            color={"black"}
-                            size={20}
+                        <View
                             style={[
-                                styles.arrow,
-                                {
-                                    left: dir == "right" ? 20 : null,
-                                    right: dir == "left" ? 20 : null,
-                                },
+                                styles.container,
+                                { backgroundColor: color },
                             ]}
-                        />
-                        <Text style={styles.textName}>{name}</Text>
-                        <Text style={styles.text}>{lifeTotal}</Text>
-                        <TouchableOpacity
-                            id="up"
-                            style={[styles.button, { left: 0 }]}
-                            onPress={() => addSub(-1)}
-                            onLongPress={() => start(-1)}
-                            onPressOut={() => clearInterval(timerId)}
                         >
-                            <MaterialCommunityIcons
-                                name={"minus"}
+                            <MaterialIcons
+                                name={
+                                    dir == "left"
+                                        ? "arrow-forward-ios"
+                                        : "arrow-back-ios"
+                                }
                                 color={"black"}
-                                size={40}
+                                size={20}
+                                style={[
+                                    styles.arrow,
+                                    {
+                                        left: dir == "right" ? 20 : null,
+                                        right: dir == "left" ? 20 : null,
+                                    },
+                                ]}
                             />
-                        </TouchableOpacity>
+                            <Text style={styles.textName}>{name}</Text>
+                            <Text style={styles.text}>{lifeTotal}</Text>
+                            <TouchableOpacity
+                                id="up"
+                                style={[styles.button, { left: 0 }]}
+                                onPress={() => addSub(-1)}
+                                onLongPress={() => start(-1)}
+                                onPressOut={() => clearInterval(timerId)}
+                            >
+                                <MaterialCommunityIcons
+                                    name={"minus"}
+                                    color={"black"}
+                                    size={40}
+                                />
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                id="up"
+                                style={[
+                                    styles.button,
+                                    { right: 0, alignItems: "flex-end" },
+                                ]}
+                                onPress={() => addSub(1)}
+                                onLongPress={() => start(1)}
+                                onPressOut={() => clearInterval(timerId)}
+                            >
+                                <MaterialCommunityIcons
+                                    name={"plus"}
+                                    color={"black"}
+                                    size={40}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                    </Swipeable>
+                ) : (
+                    <View style={styles.deathScreen}>
+                        <Foundation name={"skull"} color={"black"} size={100} />
                         <TouchableOpacity
-                            id="up"
-                            style={[
-                                styles.button,
-                                { right: 0, alignItems: "flex-end" },
-                            ]}
-                            onPress={() => addSub(1)}
-                            onLongPress={() => start(1)}
-                            onPressOut={() => clearInterval(timerId)}
+                            style={styles.deathButton}
+                            onPress={() => changeDeath(false, id)}
                         >
-                            <MaterialCommunityIcons
-                                name={"plus"}
+                            <MaterialIcons
+                                name={"close"}
                                 color={"black"}
-                                size={40}
+                                size={25}
                             />
                         </TouchableOpacity>
                     </View>
-                </Swipeable>
+                )}
             </GestureHandlerRootView>
         );
     }
@@ -148,6 +170,13 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         borderColor: "black",
         borderWidth: 1,
+    },
+    deathScreen: {
+        width: "100%",
+        height: "100%",
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "darkgrey",
     },
     text: {
         fontSize: 80,

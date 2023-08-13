@@ -20,6 +20,7 @@ export default function CommanderLayout({ navigation }) {
         "#FFA500FF",
         "#00FF00FF",
     ]);
+    const [death, setDeath] = useState([false, false, false, false]);
 
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
 
@@ -33,6 +34,12 @@ export default function CommanderLayout({ navigation }) {
         const tempArr = [...colors];
         tempArr[id] = color;
         setColors(tempArr);
+    };
+
+    const handleChangeDeath = (deathStatus, id) => {
+        const tempArr = [...death];
+        tempArr[id] = deathStatus;
+        setDeath(tempArr);
     };
 
     const handleCloseSwipeable = (ref) => {
@@ -56,6 +63,8 @@ export default function CommanderLayout({ navigation }) {
                                 },
                             ],
                         }}
+                        changeDeath={handleChangeDeath}
+                        death={death[key]}
                         id={key}
                         key={key}
                         ref={refs.current[key]}
@@ -70,6 +79,7 @@ export default function CommanderLayout({ navigation }) {
                                 sliderThic={40}
                                 name={nameList[key]}
                                 color={colors[key]}
+                                changeDeath={handleChangeDeath}
                                 changeName={handleChangeName}
                                 id={key}
                                 dir={key == 1 || key == 2 ? "right" : "left"}
@@ -92,11 +102,7 @@ const styles = StyleSheet.create({
     },
     backButtonContainer: {
         position: "absolute",
-        height: "100%",
-        width: "100%",
         display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
         zIndex: 1,
     },
     container: {
@@ -112,5 +118,8 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         flexBasis: "auto",
         flexWrap: "wrap",
+
+        justifyContent: "center",
+        alignItems: "center",
     },
 });

@@ -1,7 +1,9 @@
-import { View, TextInput, StyleSheet } from "react-native";
+import { View, TextInput, StyleSheet, TouchableOpacity } from "react-native";
 import { useState, useEffect } from "react";
 import ColorPicker, { HueSlider } from "reanimated-color-picker";
 import { MaterialIcons } from "@expo/vector-icons";
+
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default function SwipeComponent({
     changeName,
@@ -13,6 +15,7 @@ export default function SwipeComponent({
     sliderThic,
     orientation,
     dir,
+    changeDeath,
 }) {
     const [newName, setNewName] = useState(name);
 
@@ -34,6 +37,22 @@ export default function SwipeComponent({
                     color={"black"}
                     size={30}
                 />
+                <TouchableOpacity
+                    style={[
+                        styles.death,
+                        {
+                            left: dir == "left" ? 25 : null,
+                            right: dir == "right" ? 25 : null,
+                        },
+                    ]}
+                    onPress={() => changeDeath(true, id)}
+                >
+                    <MaterialCommunityIcons
+                        name="skull"
+                        color={"black"}
+                        size={30}
+                    />
+                </TouchableOpacity>
                 <TextInput
                     style={[
                         styles.textInput,
@@ -90,6 +109,14 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         width: "100%",
+    },
+    death: {
+        position: "absolute",
+        display: "flex",
+        borderColor: "black",
+        borderWidth: 3,
+        borderRadius: 10,
+        padding: 2,
     },
     sudoContainer: {
         width: "100%",
