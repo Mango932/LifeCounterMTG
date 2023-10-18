@@ -1,8 +1,8 @@
-# Magic: The Gathering Life Tracker
+# Life Tracker
 
 ## Description
 
-Magic: The Gathering Life Tracker is a coding project that allows users to track the life points of individual players during MTG games. It offers two different screens, one for a 4-player format and another for a 2-player format, and provides player customization options for names and colors.
+Life Tracker is a coding project that allows users to track the life points of individual players during MTG games. It offers two different screens, one for a 4-player format and another for a 2-player format, and provides player customization options for names and colors.
 
 ## Features
 
