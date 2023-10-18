@@ -19,7 +19,11 @@ Magic: The Gathering Life Tracker is a coding project that allows users to track
 
 ## Screenshots
 
-![Screenshot 1](app/assets/img/LCA1.png) ![Screenshot 2](app/assets/img/LCA2.png) ![Screenshot 3](app/assets/img/LCA3.png)
+<div style="display: flex;">
+  <img alt="Screenshot 1" src="app/assets/img/LCA1.png" size="100px"/>
+  <img alt="Screenshot 2" src="app/assets/img/LCA2.png" size="100px"/>
+  <img alt="Screenshot 3" src="app/assets/img/LCA3.png" size="100px"/>
+</div>
 
 ## Authors
 
